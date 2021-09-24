@@ -7,8 +7,7 @@
 
     <body>
         <script>
-            // Adds math.js
-            src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js";
+
             //Create a function computerPlay where it randomly returns a string with either 'Rock', 'Paper', or Scissors
             function computerPlay(){
                 const computerSelection = Math.floor(Math.random() * 3);
@@ -27,30 +26,30 @@
             //Create a function rps that takes two parameters, playerSelection and computerSelection.
             function playRound(userSelection, computerSelection) {
 
-                function compareSelection() {
-                    //Assign a value to userSelection and computerSelection
-                    const userNum = setValueToSelection(userSelection);
-                    const computerNum = setValueToSelection(computerSelection);
+                //Assign a value to userSelection and computerSelection
+                const userNum = setValueToSelection(userSelection);
+                const computerNum = setValueToSelection(computerSelection);
 
-                    //Sum userNum and computerNum to determine combination of rock, paper, and scissors
-                    const sum = userNum + computerNum;
+                //Sum userNum and computerNum to determine combination of rock, paper, and scissors
+                const sum = userNum + computerNum;
 
-                    switch (sum) {
-                        case 0:
-                            return 'You tie!';
-                        case 1:
-                            return (userSelection == 'Paper') ? 'You win! Paper beats rock.' : 'You lose! Paper beats rock.';
-                        case 2:
-                            return (userSelection == 'Rock') ? 'You win! Rock beats scissors.': 
-                                   (userSelection == 'Paper') ? 'You tie!' : 'You lose! Rock beats scissors.';
-                        case 3:
-                            return (userSelection == 'Scissors') ? 'You win! Scissors beats paper.' : 'You lose! Scissors beats paper.';
-                        case 4:
-                            return 'You tie!';
-                    }
+                //Rock = 0, Paper = 1, Scissors = 2
+                //Adding the sum checks for computerSelection
+                switch (sum) {
+                    case 0:
+                        return 'You tie!';
+                    case 1: // Checks for paper
+                        return (userNum == 1) ? 'You win! Paper beats rock.' : 'You lose! Paper beats rock.';
+                    case 2: // Checks for a tie, and scissors
+                        return (userNum == 0) ? 'You win! Rock beats scissors.': 
+                                (userNum == 1) ? 'You tie!' : 'You lose! Rock beats scissors.';
+                    case 3:
+                        return (userNum == 2) ? 'You win! Scissors beats paper.' : 'You lose! Scissors beats paper.';
+                    case 4:
+                        return 'You tie!';
                 }
-                return compareSelection();
             }
+
             //Changes the string to have only first character uppercase.
             function changeFirstCharUpperCase (string) {
                 string = string.toLowerCase();
@@ -105,6 +104,7 @@
                     console.log(`User score: ${userScore} , Computer score: ${computerScore} , Ties: ${tieScore}` + '\n');
                     }
                     else {
+                        //Provides error message and reverts attempt for input
                         console.log('Please enter a valid answer. (rock, paper, or scissors)');
                         i--;
                     }
