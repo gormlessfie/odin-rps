@@ -82,7 +82,7 @@
                 let answer;
                 let result = '';
 
-                for(let i = 0; i < 10; i++) {
+                for(let i = 1; i <= 10; i++) {
                     answer = prompt("Enter a selection: rock, paper, or scissors");
                     answer = changeFirstCharUpperCase(answer);
                 
@@ -100,7 +100,7 @@
                                 tieScore++;
                                 break;
                         }
-                    console.log(result);
+                    console.log(`Round ${i}: ${result}`);
                     console.log(`User score: ${userScore} , Computer score: ${computerScore} , Ties: ${tieScore}`);
                     }
                     else {
