@@ -26,49 +26,47 @@
 
             //Create a function rps that takes two parameters, playerSelection and computerSelection.
             function playRound(userSelection, computerSelection) {
-                //Make the userSelection take a string which is case-insensitive 
-                userSelection = changeFirstCharUpperCase(userSelection);
 
-                //Compare userSelection with computerSelection
-                switch (userSelection) {
-                    case 'Rock':
-                        switch (computerSelection){
-                            case 'Rock':
-                                return 'You tie';
-                            case 'Paper':
-                                return 'You lose! Paper beats rock.';
-                            case 'Scissors':
-                                return 'You win! Rock beats scissors.';
-                            
-                        }
-                    case 'Paper':
-                        switch (computerSelection){
-                            case 'Rock':
-                                return 'You win! Paper beats rock.';
-                            case 'Paper':
-                                return 'You tie.';
-                            case 'Scissors':
-                                return 'You lose! Scissors beats paper.';
-                            
-                        }
-                    case 'Scissors':
-                        switch (computerSelection){
-                            case 'Rock':
-                                return 'You lose! Rock beats scissors.';
-                            case 'Paper':
-                                return 'You win! Scissors beats rock.';
-                            case 'Scissors':
-                                return 'You tie.';
-                            
-                        }
+                function compareSelection() {
+                    //Assign a value to userSelection and computerSelection
+                    const userNum = setValueToSelection(userSelection);
+                    const computerNum = setValueToSelection(computerSelection);
+
+                    //Sum userNum and computerNum to determine combination of rock, paper, and scissors
+                    const sum = userNum + computerNum;
+
+                    switch (sum) {
+                        case 0:
+                            return 'You tie!';
+                        case 1:
+                            return (userSelection == 'Paper') ? 'You win! Paper beats rock.' : 'You lose! Paper beats rock.';
+                        case 2:
+                            return (userSelection == 'Rock') ? 'You win! Rock beats scissors.': 
+                                   (userSelection == 'Paper') ? 'You tie!' : 'You lose! Rock beats scissors.';
+                        case 3:
+                            return (userSelection == 'Scissors') ? 'You win! Scissors beats paper.' : 'You lose! Scissors beats paper.';
+                        case 4:
+                            return 'You tie!';
+                    }
                 }
-
+                return compareSelection();
             }
             //Changes the string to have only first character uppercase.
             function changeFirstCharUpperCase (string) {
                 string = string.toLowerCase();
                 string = string.substr(0,1).toUpperCase() + string.substr(1);
                 return string;
+            }
+            
+            function setValueToSelection(string) {
+                switch (string) {
+                    case 'Rock':
+                        return 0;
+                    case 'Paper':
+                        return 1;
+                    case 'Scissors':
+                        return 2;
+                }
             }
 
             function appropriateAnswer(userSelection) {
@@ -81,14 +79,16 @@
                 let tieScore = 0;
                 let answer;
                 let result = '';
+                let computerChoice;
 
                 for(let i = 1; i <= 10; i++) {
                     answer = prompt("Enter a selection: rock, paper, or scissors");
                     answer = changeFirstCharUpperCase(answer);
+                    computerChoice = computerPlay();
                 
                     if(appropriateAnswer(answer)) {
 
-                        result = playRound(answer, computerPlay());
+                        result = playRound(answer, computerChoice);
                         switch (result.substr(4,1)) {
                             case 'w':
                                 userScore++;
@@ -100,15 +100,17 @@
                                 tieScore++;
                                 break;
                         }
+                    console.log(`User choice: ${answer} | Computer choice: ${computerChoice}`);
                     console.log(`Round ${i}: ${result}`);
-                    console.log(`User score: ${userScore} , Computer score: ${computerScore} , Ties: ${tieScore}`);
+                    console.log(`User score: ${userScore} , Computer score: ${computerScore} , Ties: ${tieScore}` + '\n');
                     }
                     else {
-                        return console.log('Please enter a valid answer.');
+                        console.log('Please enter a valid answer. (rock, paper, or scissors)');
+                        i--;
                     }
                 }
             }
-            game();
+            game('rock');
         </script>
     </body>
 </html>
