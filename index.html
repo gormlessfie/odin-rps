@@ -3,114 +3,18 @@
     <head>
         <title>Rock Paper Scissors</title>
         <meta charset='UTF-8'>
+        <script src='javascript.js' defer></script>
+        <link rel='stylesheet' href='styles.css'>
     </head>
 
     <body>
-        <script>
+        <h1>Rock Paper Scissors</h1>
+        <div id='results-container'>
+            <h2></h2>
+            <ul id='results-log'></ul>
+        </div>
 
-            //Create a function computerPlay where it randomly returns a string with either 'Rock', 'Paper', or Scissors
-            function computerPlay(){
-                const computerSelection = Math.floor(Math.random() * 3);
-
-                switch(computerSelection) {
-                    case 0:
-                        return 'Rock';
-                    case 1:
-                        return 'Paper';
-                    case 2:
-                        return 'Scissors';
-                }
-
-            }
-
-            //Create a function rps that takes two parameters, playerSelection and computerSelection.
-            function playRound(userSelection, computerSelection) {
-
-                //Assign a value to userSelection and computerSelection
-                const userNum = setValueToSelection(userSelection);
-                const computerNum = setValueToSelection(computerSelection);
-
-                //Sum userNum and computerNum to determine combination of rock, paper, and scissors
-                const sum = userNum + computerNum;
-
-                //Rock = 0, Paper = 1, Scissors = 2
-                //Adding the sum checks for computerSelection
-                switch (sum) {
-                    case 0:
-                        return 'You tie!';
-                    case 1: // Checks for paper
-                        return (userNum == 1) ? 'You win! Paper beats rock.' : 'You lose! Paper beats rock.';
-                    case 2: // Checks for a tie, and scissors
-                        return (userNum == 0) ? 'You win! Rock beats scissors.': 
-                                (userNum == 1) ? 'You tie!' : 'You lose! Rock beats scissors.';
-                    case 3:
-                        return (userNum == 2) ? 'You win! Scissors beats paper.' : 'You lose! Scissors beats paper.';
-                    case 4:
-                        return 'You tie!';
-                }
-            }
-
-            //Changes the string to have only first character uppercase.
-            function changeFirstCharUpperCase (string) {
-                string = string.toLowerCase();
-                string = string.substr(0,1).toUpperCase() + string.substr(1);
-                return string;
-            }
-            
-            function setValueToSelection(string) {
-                switch (string) {
-                    case 'Rock':
-                        return 0;
-                    case 'Paper':
-                        return 1;
-                    case 'Scissors':
-                        return 2;
-                }
-            }
-
-            function appropriateAnswer(userSelection) {
-                return (userSelection == 'Rock' || userSelection == 'Paper' || userSelection == 'Scissors') ? true : false;
-            }
-
-            function game() {
-                let userScore = 0;
-                let computerScore = 0;
-                let tieScore = 0;
-                let answer;
-                let result = '';
-                let computerChoice;
-
-                for(let i = 1; i <= 10; i++) {
-                    answer = prompt("Enter a selection: rock, paper, or scissors");
-                    answer = changeFirstCharUpperCase(answer);
-                    computerChoice = computerPlay();
-                
-                    if(appropriateAnswer(answer)) {
-
-                        result = playRound(answer, computerChoice);
-                        switch (result.substr(4,1)) {
-                            case 'w':
-                                userScore++;
-                                break;
-                            case 'l':
-                                computerScore++;
-                                break;
-                            case 't':
-                                tieScore++;
-                                break;
-                        }
-                    console.log(`User choice: ${answer} | Computer choice: ${computerChoice}`);
-                    console.log(`Round ${i}: ${result}`);
-                    console.log(`User score: ${userScore} , Computer score: ${computerScore} , Ties: ${tieScore}` + '\n');
-                    }
-                    else {
-                        //Provides error message and reverts attempt for input
-                        console.log('Please enter a valid answer. (rock, paper, or scissors)');
-                        i--;
-                    }
-                }
-            }
-            game('rock');
-        </script>
+        <div id='button-container'>
+        </div>
     </body>
 </html>
